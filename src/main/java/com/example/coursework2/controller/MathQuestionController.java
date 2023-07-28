@@ -4,14 +4,17 @@ import com.example.coursework2.model.Question;
 import com.example.coursework2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-
+@RestController
+@RequestMapping("/math")
 public class MathQuestionController {
     private final QuestionService questionService;
 
-    public MathQuestionController(@Qualifier("mathQuestion") QuestionService questionService) {
+    public MathQuestionController(@Qualifier("mathService") QuestionService questionService) {
         this.questionService = questionService;
     }
     @GetMapping("/add")
@@ -21,7 +24,6 @@ public class MathQuestionController {
         questionService.add(newQuestion);
         return newQuestion;
     }
-    //Удалить: “/exam/java/remove?question=QuestionText&answer=QuestionAnswer”
     @GetMapping("/remove")
     public Question removeQuestion(@RequestParam String question,
                                    @RequestParam String answer) {

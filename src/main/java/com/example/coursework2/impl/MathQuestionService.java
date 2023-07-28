@@ -3,28 +3,29 @@ package com.example.coursework2.impl;
 import com.example.coursework2.model.Question;
 import com.example.coursework2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 @Service
-@Qualifier("mathQuestion")
+@Component("mathService")
 public class MathQuestionService implements QuestionService {
-    private final Set<Question> questionsStorage = new HashSet<>();
+    private final List<Question> mathQuestionsStorage = new ArrayList<>();
     @Override
     public Question add (String question, String answer){
         Question addQuestion = new Question(question, answer);
-        questionsStorage.add(addQuestion);
+        mathQuestionsStorage.add(addQuestion);
         return addQuestion;
     }
     @Override
     public Question add (Question question){
-        questionsStorage.add(question);
+        mathQuestionsStorage.add(question);
         return question;
     }
     @Override
     public Question remove(Question question) {
-        if (questionsStorage.contains(question)) {
-            questionsStorage.remove(question);
+        if (mathQuestionsStorage.contains(question)) {
+            mathQuestionsStorage.remove(question);
             return question;
         }
         return null;
@@ -32,16 +33,13 @@ public class MathQuestionService implements QuestionService {
 
     @Override
     public Collection<Question> getAll() {
-        return questionsStorage;
+        return mathQuestionsStorage;
     }
 
     @Override
     public Question getRandomQuestion() {
-        int randomIndex = new Random().nextInt(questionsStorage.size());
-        List<Question> questionStream = questionsStorage.stream()
-                .toList();
-        return questionStream.get(randomIndex);
+        int random = new Random().nextInt(mathQuestionsStorage.size());
+        return mathQuestionsStorage.get(random);
     }
-
 
 }

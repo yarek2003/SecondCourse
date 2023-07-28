@@ -3,12 +3,13 @@ package com.example.coursework2.impl;
 import com.example.coursework2.model.Question;
 import com.example.coursework2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@Qualifier("question")
+@Component("javaService")
 public class JavaQuestionServiceImpl implements QuestionService {
     private final Set<Question> questionsStorage = new HashSet<>();
     @Override
