@@ -2,6 +2,7 @@ package com.example.coursework2.impl;
 
 import com.example.coursework2.model.Question;
 import com.example.coursework2.repository.JavaQuestionRepository;
+import com.example.coursework2.repository.MathQuestionRepository;
 import com.example.coursework2.service.QuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,26 +12,28 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-class JavaQuestionServiceImplTest {
+class MathQuestionServiceImplTest {
   @InjectMocks
-  private  JavaQuestionRepository repository;
+  private MathQuestionRepository repository;
 
     @Mock
     private QuestionService service;
 
 
-  private JavaQuestionServiceImpl javaQuestionServiceImpl = new JavaQuestionServiceImpl(repository);
+  private MathQuestionService mathQuestionServiceImpl = new MathQuestionService(repository);
 
     @BeforeEach
     void setup (){
         MockitoAnnotations.openMocks(this);
-        service = new JavaQuestionServiceImpl(repository);
+        service = new MathQuestionService(repository);
     }
     @Test
     void add() {

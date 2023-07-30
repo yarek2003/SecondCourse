@@ -15,7 +15,7 @@ import java.util.Collection;
 public class JavaQuestionController {
     private final QuestionService questionService;
 
-    public JavaQuestionController(@Qualifier("question")QuestionService questionService) {
+    public JavaQuestionController(@Qualifier("javaService")QuestionService questionService) {
         this.questionService = questionService;
     }
     @GetMapping("/add")
@@ -31,7 +31,7 @@ public class JavaQuestionController {
         Question removeQuestion = new Question(question, answer);
         return questionService.remove(removeQuestion);
     }
-    //Получить все вопросы: “/exam/java”
+
     @GetMapping()
     public Collection<Question> getQuestions() {
         return questionService.getAll();
