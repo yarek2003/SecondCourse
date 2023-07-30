@@ -1,6 +1,7 @@
 package com.example.coursework2.impl;
 
 import com.example.coursework2.model.Question;
+import com.example.coursework2.repository.QuestionRepository;
 import com.example.coursework2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -11,36 +12,40 @@ import java.util.*;
 @Service
 @Component("javaService")
 public class JavaQuestionServiceImpl implements QuestionService {
-    private final Set<Question> questionsStorage = new HashSet<>();
+    private final QuestionRepository repository;
+
+    public JavaQuestionServiceImpl(@Qualifier("javaRepository") QuestionRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public Question add (String question, String answer){
     Question addQuestion = new Question(question, answer);
-    questionsStorage.add(addQuestion);
+    repository.add(addQuestion);
     return addQuestion;
     }
     @Override
     public Question add (Question question){
-        questionsStorage.add(question);
+        repository.add(question);
         return question;
     }
     @Override
     public Question remove(Question question) {
-        if (questionsStorage.contains(question)) {
-            questionsStorage.remove(question);
-            return question;
-        }
-        return null;
+
+            return repository.remove(question);
+
     }
 
     @Override
     public Collection<Question> getAll() {
-        return questionsStorage;
+        return repository.getAll();
     }
 
     @Override
     public Question getRandomQuestion() {
-        int randomIndex = new Random().nextInt(questionsStorage.size());
-        List<Question> questionStream = questionsStorage.stream()
+        var allQuestions = repository.getAll();
+        int randomIndex = new Random().nextInt(allQuestions.size());
+        List<Question> questionStream = allQuestions.stream()
                 .toList();
         return questionStream.get(randomIndex);
     }
